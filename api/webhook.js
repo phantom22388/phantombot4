@@ -1,4 +1,10 @@
 import { Telegraf } from 'telegraf';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const botToken = process.env.BOT_TOKEN;
 if (!botToken) {
@@ -28,14 +34,8 @@ bot.on('text', async (ctx) => {
 
     if (messageText === 'hi') {
         try {
-            await ctx.replyWithPhoto(
-                { 
-                    url: 'https://imgs.search.brave.com/BpXs26bfzlO4TBTMItL09Tq1qrkHu8NPCaOCrWGt1hE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuZnJlZWltYWdl/cy5jb20vc2xpZGVz/LzMxMzYzNDlmYjhl/YzRiZTRiNmU3NTI3/OGQ1MjEyZGVkLndl/YnA'
-                },
-                {
-                    caption: 'Here is an image for you!'
-                }
-            );
+            const imagePath = path.join(__dirname, '../images/cbtf button.jpg');
+            await ctx.replyWithPhoto({ source: imagePath }, { caption: 'Here is an image for you!' });
         } catch (error) {
             console.error('Error sending image:', error);
             await ctx.reply('Sorry, could not send image').catch(console.error);
@@ -53,14 +53,8 @@ bot.start(async (ctx) => {
     try {
         console.log('Start command received');
         await ctx.reply('Welcome! Bot is active.');
-        await ctx.replyWithPhoto(
-            { 
-                url: 'https://imgs.search.brave.com/BpXs26bfzlO4TBTMItL09Tq1qrkHu8NPCaOCrWGt1hE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuZnJlZWltYWdl/cy5jb20vc2xpZGVz/LzMxMzYzNDlmYjhl/YzRiZTRiNmU3NTI3/OGQ1MjEyZGVkLndl/YnA'
-            },
-            {
-                caption: 'Here is an image for you!'
-            }
-        );
+        const imagePath = path.join(__dirname, '../images/image.jpg');
+        await ctx.replyWithPhoto({ source: imagePath }, { caption: 'Here is an image for you!' });
     } catch (error) {
         console.error('Start command error:', error);
         await ctx.reply('Sorry, could not send image').catch(console.error);
@@ -102,6 +96,5 @@ export default async function handler(request, response) {
     }
 }
 
-// Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'));
 process.once('SIGTERM', () => bot.stop('SIGTERM'));
