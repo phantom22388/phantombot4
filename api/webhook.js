@@ -35,7 +35,10 @@ bot.on('text', async (ctx) => {
     if (messageText === 'hi') {
         try {
             const imagePath = path.join(__dirname, '../images/cbtf button.jpg');
-            await ctx.replyWithPhoto({ source: imagePath }, { caption: 'Here is an image for you!' });
+            await ctx.replyWithPhoto(
+                { source: imagePath },
+                { caption: 'Here is an image for you! Visit https://cbtflotus247.com/' }
+            );
         } catch (error) {
             console.error('Error sending image:', error);
             await ctx.reply('Sorry, could not send image').catch(console.error);
@@ -54,7 +57,10 @@ bot.start(async (ctx) => {
         console.log('Start command received');
         await ctx.reply('Welcome! Bot is active.');
         const imagePath = path.join(__dirname, '../images/image.jpg');
-        await ctx.replyWithPhoto({ source: imagePath }, { caption: 'Here is an image for you!' });
+        await ctx.replyWithPhoto(
+            { source: imagePath },
+            { caption: 'Here is an image for you! Visit https://cbtflotus247.com/' }
+        );
     } catch (error) {
         console.error('Start command error:', error);
         await ctx.reply('Sorry, could not send image').catch(console.error);
@@ -96,5 +102,6 @@ export default async function handler(request, response) {
     }
 }
 
+// Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'));
 process.once('SIGTERM', () => bot.stop('SIGTERM'));
