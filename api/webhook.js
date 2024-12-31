@@ -22,9 +22,27 @@ bot.use(async (ctx, next) => {
 });
 
 // Message handlers
-bot.on('text', (ctx) => {
-    console.log('Received message:', ctx.message.text);
-    return ctx.reply(`You said: ${ctx.message.text}`);
+bot.on('text', async (ctx) => {
+    const messageText = ctx.message.text.toLowerCase();
+    console.log('Received message:', messageText);
+
+    if (messageText === 'hi') {
+        try {
+            await ctx.replyWithPhoto(
+                { 
+                    url: 'https://imgs.search.brave.com/BpXs26bfzlO4TBTMItL09Tq1qrkHu8NPCaOCrWGt1hE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuZnJlZWltYWdl/cy5jb20vc2xpZGVz/LzMxMzYzNDlmYjhl/YzRiZTRiNmU3NTI3/OGQ1MjEyZGVkLndl/YnA'
+                },
+                {
+                    caption: 'Here is an image for you!'
+                }
+            );
+        } catch (error) {
+            console.error('Error sending image:', error);
+            await ctx.reply('Sorry, could not send image').catch(console.error);
+        }
+    } else {
+        await ctx.reply(`You said: ${ctx.message.text}`);
+    }
 });
 
 // Test commands
