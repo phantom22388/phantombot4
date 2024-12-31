@@ -1,11 +1,24 @@
 import { Telegraf } from 'telegraf';
 
-const bot = new Telegraf(process.env.BOT_TOKEN);
+const botToken = process.env.BOT_TOKEN;
+if (!botToken) {
+    throw new Error('BOT_TOKEN is not set');
+}
+console.log('Bot token:', botToken);
+
+const bot = new Telegraf(botToken);
 
 // Add error handling
 bot.catch((err, ctx) => {
     console.error('Bot error:', err);
-    ctx.reply('An error occurred');
+    ctx.reply('An errorr occurred').catch(console.error);
+});
+
+// Add debug middleware
+bot.use(async (ctx, next) => {
+    console.log('New update:', ctx.update);
+    await next();
+    console.log('Response sent');
 });
 
 // Message handlers
@@ -32,12 +45,14 @@ bot.start(async (ctx) => {
         );
     } catch (error) {
         console.error('Start command error:', error);
-        await ctx.reply('Sorry, could not send image');
+        await ctx.reply('Sorry, could not send image').catch(console.error);
     }
 });
 
 export default async function handler(request, response) {
     try {
+        console.log(`Request ${request.method}:`, request.body);
+
         // Health check endpoint
         if (request.method === 'GET') {
             return response.status(200).json({ 
