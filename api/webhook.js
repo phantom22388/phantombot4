@@ -37,7 +37,7 @@ bot.on('text', async (ctx) => {
             const imagePath = path.join(__dirname, '../images/cbtf button.jpg');
             await ctx.replyWithPhoto(
                 { source: imagePath },
-                { caption: 'Here is an image for you! Visit https://cbtflotus247.com/' }
+                { caption: 'The Arena Buzzing with excitement as countdown to victory begins! make Faireless Predictions at  https://cbtflotus247.com/' }
             );
         } catch (error) {
             console.error('Error sending image:', error);
@@ -59,7 +59,7 @@ bot.start(async (ctx) => {
         const imagePath = path.join(__dirname, '../images/image.jpg');
         await ctx.replyWithPhoto(
             { source: imagePath },
-            { caption: 'Here is an image for you! Visit https://cbtflotus247.com/' }
+            { caption: 'The Arena Buzzing with excitement as countdown to victory begins! make Faireless Predictions at  https://cbtflotus247.com/' }
         );
     } catch (error) {
         console.error('Start command error:', error);
