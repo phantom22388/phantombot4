@@ -1,4 +1,4 @@
-import { Telegraf } from 'telegraf';
+import { Telegraf, Markup } from 'telegraf';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -32,12 +32,17 @@ bot.on('text', async (ctx) => {
     const messageText = ctx.message.text.toLowerCase();
     console.log('Received message:', messageText);
 
-    if (messageText === 'hi') {
+    if (messageText === '/start') {
         try {
             const imagePath = path.join(__dirname, '../images/cbtf button.jpg');
             await ctx.replyWithPhoto(
                 { source: imagePath },
-                { caption: 'The Arena Buzzing with excitement as countdown to victory begins! make Faireless Predictions at  https://cbtflotus247.com/' }
+                {
+                    caption: 'The Arena Buzzing with excitement as countdown to victory begins! make Faireless Predictions at https://cbtflotus247.com/',
+                    ...Markup.inlineKeyboard([
+                        Markup.button.url('Register Now', 'https://cbtflotus247.com/')
+                    ])
+                }
             );
         } catch (error) {
             console.error('Error sending image:', error);
@@ -59,7 +64,12 @@ bot.start(async (ctx) => {
         const imagePath = path.join(__dirname, '../images/image.jpg');
         await ctx.replyWithPhoto(
             { source: imagePath },
-            { caption: 'The Arena Buzzing with excitement as countdown to victory begins! make Faireless Predictions at  https://cbtflotus247.com/' }
+            {
+                caption: 'The Arena Buzzing with excitement as countdown to victory begins! make Faireless Predictions at https://cbtflotus247.com/',
+                ...Markup.inlineKeyboard([
+                    Markup.button.url('Register Now', 'https://cbtflotus247.com/')
+                ])
+            }
         );
     } catch (error) {
         console.error('Start command error:', error);
