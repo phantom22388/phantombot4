@@ -38,18 +38,16 @@ bot.on('text', async (ctx) => {
             const videoPath1 = path.join(__dirname, '../videos/cbtf.register.mp4'); 
             const videoPath2 = path.join(__dirname, '../videos/VID-20241231-WA0013.mp4'); 
 
-            // Send image with link
             await ctx.replyWithPhoto(
                 { source: imagePath },
                 {
                     caption: 'The Arena Buzzing with excitement as countdown to victory begins! make fairless Predictions https://cbtflotus247.com/ ',
                     ...Markup.inlineKeyboard([
-                        Markup.button.url('Register Now', 'https://cbtflotus247.com/')
+                        Markup.button.url('Get Id Now', 'https://cbtflotus247.com/')
                     ])
                 }
             );
 
-            // Send first video with link
             await ctx.replyWithVideo(
                 { source: videoPath1 },
                 {
@@ -60,13 +58,12 @@ bot.on('text', async (ctx) => {
                 }
             );
 
-            // Send second video with link
             await ctx.replyWithVideo(
                 { source: videoPath2 },
                 {
                
                     ...Markup.inlineKeyboard([
-                        Markup.button.url('Withdrawal Now', 'https://cbtflotus247.com/')
+                        Markup.button.url('Register Now', 'https://cbtflotus247.com/')
                     ])
                 }
             );
@@ -98,7 +95,7 @@ bot.start(async (ctx) => {
             {
                 caption: 'The Arena Buzzing with excitement as countdown to victory begins!',
                 ...Markup.inlineKeyboard([
-                    Markup.button.url('Register Now', 'https://cbtflotus247.com/')
+                    Markup.button.url('Get ID Now', 'https://cbtflotus247.com/')
                 ])
             }
         );
@@ -109,7 +106,7 @@ bot.start(async (ctx) => {
             {
                
                 ...Markup.inlineKeyboard([
-                    Markup.button.url('Withdrawel Now', 'https://cbtflotus247.com/')
+                    Markup.button.url('Deposit Now', 'https://cbtflotus247.com/')
                 ])
             }
         );
@@ -120,7 +117,7 @@ bot.start(async (ctx) => {
             {
            
                 ...Markup.inlineKeyboard([
-                    Markup.button.url('', 'https://cbtflotus247.com/')
+                    Markup.button.url('Register Now', 'https://cbtflotus247.com/')
                 ])
             }
         );
