@@ -35,18 +35,35 @@ bot.on('text', async (ctx) => {
     if (messageText === '/start') {
         try {
             const imagePath = path.join(__dirname, '../images/cbtf button.jpg');
-            await ctx.replyWithPhoto(
-                { source: imagePath },
+            const videoPath1 = path.join(__dirname, '../videos/cbtf.register.mp4'); 
+            const videoPath2 = path.join(__dirname, '../videos/VID-20241231-WA0013.mp4'); 
+
+            await ctx.replyWithMediaGroup([
                 {
-                    caption: 'The Arena Buzzing with excitement as countdown to victory begins! make Faireless Predictions at https://cbtflotus247.com/',
-                    ...Markup.inlineKeyboard([
-                        Markup.button.url('Register Now', 'https://cbtflotus247.com/')
-                    ])
+                    type: 'photo',
+                    media: { source: imagePath },
+                    caption: 'The Arena Buzzing with excitement as countdown to victory begins!',
+                },
+                {
+                    type: 'video',
+                    media: { source: videoPath1 },
+                    caption: 'Watch this exciting video 1!',
+                },
+                {
+                    type: 'video',
+                    media: { source: videoPath2 },
+                    caption: 'Watch this exciting video 2!',
                 }
-            );
+            ]);
+
+            await ctx.reply('Check out these links:', Markup.inlineKeyboard([
+                [Markup.button.url('Visit Image Link', 'https://cbtflotus247.com/')],
+                [Markup.button.url('Watch Video 1', 'https://example.com/video1')],
+                [Markup.button.url('Watch Video 2', 'https://example.com/video2')]
+            ]));
         } catch (error) {
-            console.error('Error sending image:', error);
-            await ctx.reply('Sorry, could not send image').catch(console.error);
+            console.error('Error sending media group:', error);
+            await ctx.reply('Sorry, could not send media').catch(console.error);
         }
     } else {
         await ctx.reply(`You said: ${ctx.message.text}`);
@@ -62,18 +79,35 @@ bot.start(async (ctx) => {
         console.log('Start command received');
         await ctx.reply('Welcome! Bot is active.');
         const imagePath = path.join(__dirname, '../images/image.jpg');
-        await ctx.replyWithPhoto(
-            { source: imagePath },
+        const videoPath1 = path.join(__dirname, '../videos/cbtf.register.mp4'); 
+        const videoPath2 = path.join(__dirname, '../videos/VID-20241231-WA0013.mp4'); 
+
+        await ctx.replyWithMediaGroup([
             {
-                caption: 'The Arena Buzzing with excitement as countdown to victory begins! make Faireless Predictions at https://cbtflotus247.com/',
-                ...Markup.inlineKeyboard([
-                    Markup.button.url('Register Now', 'https://cbtflotus247.com/')
-                ])
+                type: 'photo',
+                media: { source: imagePath },
+                caption: 'The Arena Buzzing with excitement as countdown to victory begins!',
+            },
+            {
+                type: 'video',
+                media: { source: videoPath1 },
+                caption: 'Watch this exciting video 1!',
+            },
+            {
+                type: 'video',
+                media: { source: videoPath2 },
+                caption: 'Watch this exciting video 2!',
             }
-        );
+        ]);
+
+        await ctx.reply('Check out these links:', Markup.inlineKeyboard([
+            [Markup.button.url('Visit Image Link', 'https://cbtflotus247.com/')],
+            [Markup.button.url('Watch Video 1', 'https://example.com/video1')],
+            [Markup.button.url('Watch Video 2', 'https://example.com/video2')]
+        ]));
     } catch (error) {
         console.error('Start command error:', error);
-        await ctx.reply('Sorry, could not send image').catch(console.error);
+        await ctx.reply('Sorry, could not send media').catch(console.error);
     }
 });
 
