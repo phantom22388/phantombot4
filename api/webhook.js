@@ -66,7 +66,7 @@ bot.on('text', async (ctx) => {
                 {
                     caption: 'Watch this exciting video 2!',
                     ...Markup.inlineKeyboard([
-                        Markup.button.url('Withdrawl Now', 'https://cbtflotus247.com/')
+                        Markup.button.url('Withdrawal Now', 'https://cbtflotus247.com/')
                     ])
                 }
             );
@@ -109,7 +109,7 @@ bot.start(async (ctx) => {
             {
                 caption: 'Watch this exciting video 1!',
                 ...Markup.inlineKeyboard([
-                    Markup.button.url('Deposit Now', 'https://cbtflotus247.com/')
+                    Markup.button.url('Withdrawel Now', 'https://cbtflotus247.com/')
                 ])
             }
         );
@@ -120,7 +120,7 @@ bot.start(async (ctx) => {
             {
                 caption: 'Watch this exciting video 2!',
                 ...Markup.inlineKeyboard([
-                    Markup.button.url('Withdrawl Now', 'https://cbtflotus247.com/')
+                    Markup.button.url('', 'https://cbtflotus247.com/')
                 ])
             }
         );
