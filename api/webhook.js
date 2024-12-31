@@ -81,7 +81,6 @@ export default async function handler(request, response) {
     try {
         console.log(`Request ${request.method}:`, request.body);
 
-        // Health check endpoint
         if (request.method === 'GET') {
             return response.status(200).json({ 
                 status: 'alive',
