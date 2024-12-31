@@ -8,6 +8,12 @@ bot.catch((err, ctx) => {
     ctx.reply('An error occurred');
 });
 
+// Message handlers
+bot.on('text', (ctx) => {
+    console.log('Received message:', ctx.message.text);
+    return ctx.reply(`You said: ${ctx.message.text}`);
+});
+
 // Test commands
 bot.command('test', (ctx) => ctx.reply('Bot is working!'));
 bot.command('ping', (ctx) => ctx.reply('pong'));
@@ -15,6 +21,7 @@ bot.command('ping', (ctx) => ctx.reply('pong'));
 bot.start(async (ctx) => {
     try {
         console.log('Start command received');
+        await ctx.reply('Welcome! Bot is active.');
         await ctx.replyWithPhoto(
             { 
                 url: 'https://imgs.search.brave.com/BpXs26bfzlO4TBTMItL09Tq1qrkHu8NPCaOCrWGt1hE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuZnJlZWltYWdl/cy5jb20vc2xpZGVz/LzMxMzYzNDlmYjhl/YzRiZTRiNmU3NTI3/OGQ1MjEyZGVkLndl/YnA'
@@ -31,19 +38,37 @@ bot.start(async (ctx) => {
 
 export default async function handler(request, response) {
     try {
-        console.log('Received webhook:', request.method);
-        
-        if (request.method === 'POST') {
-            console.log('Update body:', request.body);
-            await bot.handleUpdate(request.body);
+        // Health check endpoint
+        if (request.method === 'GET') {
+            return response.status(200).json({ 
+                status: 'alive',
+                timestamp: new Date().toISOString()
+            });
         }
-        
-        response.status(200).json({ message: 'OK' });
+
+        // Webhook handler
+        if (request.method === 'POST') {
+            const update = request.body;
+            console.log('Update body:', JSON.stringify(update, null, 2));
+            
+            if (!update) {
+                throw new Error('No update body received');
+            }
+
+            await bot.handleUpdate(update);
+            return response.status(200).json({ ok: true });
+        }
+
+        return response.status(405).json({ error: 'Method not allowed' });
     } catch (error) {
         console.error('Webhook error:', error);
-        response.status(500).json({ 
+        return response.status(500).json({ 
             error: error.message,
-            stack: error.stack 
+            stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
         });
     }
 }
+
+// Enable graceful stop
+process.once('SIGINT', () => bot.stop('SIGINT'));
+process.once('SIGTERM', () => bot.stop('SIGTERM'));
