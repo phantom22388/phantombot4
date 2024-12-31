@@ -38,31 +38,41 @@ bot.on('text', async (ctx) => {
             const videoPath1 = path.join(__dirname, '../videos/cbtf.register.mp4'); 
             const videoPath2 = path.join(__dirname, '../videos/VID-20241231-WA0013.mp4'); 
 
-            await ctx.replyWithMediaGroup([
+            // Send image with link
+            await ctx.replyWithPhoto(
+                { source: imagePath },
                 {
-                    type: 'photo',
-                    media: { source: imagePath },
                     caption: 'The Arena Buzzing with excitement as countdown to victory begins!',
-                },
-                {
-                    type: 'video',
-                    media: { source: videoPath1 },
-                    caption: 'Watch this exciting video 1!',
-                },
-                {
-                    type: 'video',
-                    media: { source: videoPath2 },
-                    caption: 'Watch this exciting video 2!',
+                    ...Markup.inlineKeyboard([
+                        Markup.button.url('Register Now', 'https://cbtflotus247.com/')
+                    ])
                 }
-            ]);
+            );
 
-            await ctx.reply('Check out these links:', Markup.inlineKeyboard([
-                [Markup.button.url('Visit Image Link', 'https://cbtflotus247.com/')],
-                [Markup.button.url('Watch Video 1', 'https://example.com/video1')],
-                [Markup.button.url('Watch Video 2', 'https://example.com/video2')]
-            ]));
+            // Send first video with link
+            await ctx.replyWithVideo(
+                { source: videoPath1 },
+                {
+                    caption: 'Watch this exciting video 1!',
+                    ...Markup.inlineKeyboard([
+                        Markup.button.url('Deposit Now', 'https://cbtflotus247.com/')
+                    ])
+                }
+            );
+
+            // Send second video with link
+            await ctx.replyWithVideo(
+                { source: videoPath2 },
+                {
+                    caption: 'Watch this exciting video 2!',
+                    ...Markup.inlineKeyboard([
+                        Markup.button.url('Withdrawl Now', 'https://cbtflotus247.com/')
+                    ])
+                }
+            );
+
         } catch (error) {
-            console.error('Error sending media group:', error);
+            console.error('Error sending media:', error);
             await ctx.reply('Sorry, could not send media').catch(console.error);
         }
     } else {
@@ -82,29 +92,39 @@ bot.start(async (ctx) => {
         const videoPath1 = path.join(__dirname, '../videos/cbtf.register.mp4'); 
         const videoPath2 = path.join(__dirname, '../videos/VID-20241231-WA0013.mp4'); 
 
-        await ctx.replyWithMediaGroup([
+        // Send image with link
+        await ctx.replyWithPhoto(
+            { source: imagePath },
             {
-                type: 'photo',
-                media: { source: imagePath },
                 caption: 'The Arena Buzzing with excitement as countdown to victory begins!',
-            },
-            {
-                type: 'video',
-                media: { source: videoPath1 },
-                caption: 'Watch this exciting video 1!',
-            },
-            {
-                type: 'video',
-                media: { source: videoPath2 },
-                caption: 'Watch this exciting video 2!',
+                ...Markup.inlineKeyboard([
+                    Markup.button.url('Register Now', 'https://cbtflotus247.com/')
+                ])
             }
-        ]);
+        );
 
-        await ctx.reply('Check out these links:', Markup.inlineKeyboard([
-            [Markup.button.url('Visit Image Link', 'https://cbtflotus247.com/')],
-            [Markup.button.url('Watch Video 1', 'https://example.com/video1')],
-            [Markup.button.url('Watch Video 2', 'https://example.com/video2')]
-        ]));
+        // Send first video with link
+        await ctx.replyWithVideo(
+            { source: videoPath1 },
+            {
+                caption: 'Watch this exciting video 1!',
+                ...Markup.inlineKeyboard([
+                    Markup.button.url('Deposit Now', 'https://cbtflotus247.com/')
+                ])
+            }
+        );
+
+        // Send second video with link
+        await ctx.replyWithVideo(
+            { source: videoPath2 },
+            {
+                caption: 'Watch this exciting video 2!',
+                ...Markup.inlineKeyboard([
+                    Markup.button.url('Withdrawl Now', 'https://cbtflotus247.com/')
+                ])
+            }
+        );
+
     } catch (error) {
         console.error('Start command error:', error);
         await ctx.reply('Sorry, could not send media').catch(console.error);
