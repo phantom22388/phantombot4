@@ -33,45 +33,7 @@ bot.on('text', async (ctx) => {
     console.log('Received message:', messageText);
 
     if (messageText === '/start') {
-        try {
-            const imagePath = path.join(__dirname, '../images/cbtf button.jpg');
-            const videoPath1 = path.join(__dirname, '../videos/cbtf.register.mp4'); 
-            const videoPath2 = path.join(__dirname, '../videos/VID-20241231-WA0013.mp4'); 
-
-            await ctx.replyWithPhoto(
-                { source: imagePath },
-                {
-                    caption: 'The Arena Buzzing with excitement as countdown to victory begins! make fairless Predictions https://cbtflotus247.com/ ',
-                    ...Markup.inlineKeyboard([
-                        Markup.button.url('Get Id Now', 'https://cbtflotus247.com/')
-                    ])
-                }
-            );
-
-            // Send first video with link
-            await ctx.replyWithVideo(
-                { source: videoPath1 },
-                {
-                    ...Markup.inlineKeyboard([
-                        Markup.button.url('Deposit Now', 'https://cbtflotus247.com/')
-                    ])
-                }
-            );
-
-            // Send second video with link
-            await ctx.replyWithVideo(
-                { source: videoPath2 },
-                {
-                    ...Markup.inlineKeyboard([
-                        Markup.button.url('Register Now', 'https://cbtflotus247.com/')
-                    ])
-                }
-            );
-
-        } catch (error) {
-            console.error('Error sending media:', error);
-            await ctx.reply('Sorry, could not send media').catch(console.error);
-        }
+        await ctx.reply('Welcome! Bot is active.');
     } else {
         await ctx.reply(`You said: ${ctx.message.text}`);
     }
@@ -86,8 +48,8 @@ bot.start(async (ctx) => {
         console.log('Start command received');
         await ctx.reply('Welcome! Bot is active.');
         const imagePath = path.join(__dirname, '../images/image.jpg');
-        const videoPath1 = path.join(__dirname, '../videos/cbtf.register.mp4'); 
-        const videoPath2 = path.join(__dirname, '../videos/VID-20241231-WA0013.mp4'); 
+        const videoUrl1 = 'https://example.com/videos/cbtf.register.mp4'; 
+        const videoUrl2 = 'https://example.com/videos/VID-20241231-WA0013.mp4'; 
 
         // Send image with link
         await ctx.replyWithPhoto(
@@ -102,7 +64,7 @@ bot.start(async (ctx) => {
 
         // Send first video with link
         await ctx.replyWithVideo(
-            { source: videoPath1 },
+            { url: videoUrl1 },
             {
                 ...Markup.inlineKeyboard([
                     Markup.button.url('Deposit Now', 'https://cbtflotus247.com/')
@@ -112,7 +74,7 @@ bot.start(async (ctx) => {
 
         // Send second video with link
         await ctx.replyWithVideo(
-            { source: videoPath2 },
+            { url: videoUrl2 },
             {
                 ...Markup.inlineKeyboard([
                     Markup.button.url('Register Now', 'https://cbtflotus247.com/')
