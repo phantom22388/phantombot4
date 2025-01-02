@@ -48,8 +48,8 @@ bot.start(async (ctx) => {
         console.log('Start command received');
         await ctx.reply('Welcome! Bot is active.');
         const imagePath = path.join(__dirname, '../images/image.jpg');
-        const videoUrl1 = 'https://example.com/videos/cbtf.register.mp4'; 
-        const videoUrl2 = 'https://example.com/videos/VID-20241231-WA0013.mp4'; 
+        const videoUrl1 = '../videos/cbtf.register.mp4'; 
+        const videoUrl2 = '../videos/VID-20241231-WA0013.mp4'; 
 
         // Send image with link
         await ctx.replyWithPhoto(
