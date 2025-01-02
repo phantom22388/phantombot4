@@ -160,6 +160,6 @@ export default async function handler(request, response) {
     }
 }
 
-// Enable graceful stop
+
 process.once('SIGINT', () => bot.stop('SIGINT'));
 process.once('SIGTERM', () => bot.stop('SIGTERM'));
