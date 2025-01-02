@@ -48,20 +48,18 @@ bot.on('text', async (ctx) => {
                 }
             );
 
-            await ctx.sendDocument(
+            await ctx.replyWithVideo(
                 { source: videoPath1 },
                 {
-                    caption: 'Watch this exciting video 1!',
                     ...Markup.inlineKeyboard([
                         Markup.button.url('Deposit Now', 'https://cbtflotus247.com/')
                     ])
                 }
             );
 
-            await ctx.sendDocument(
+            await ctx.replyWithVideo(
                 { source: videoPath2 },
                 {
-                    caption: 'Watch this exciting video 2!',
                     ...Markup.inlineKeyboard([
                         Markup.button.url('Register Now', 'https://cbtflotus247.com/')
                     ])
@@ -101,10 +99,9 @@ bot.start(async (ctx) => {
         );
 
         // Send first video with link
-        await ctx.sendDocument(
+        await ctx.replyWithVideo(
             { source: videoPath1 },
             {
-                caption: 'Watch this exciting video 1!',
                 ...Markup.inlineKeyboard([
                     Markup.button.url('Deposit Now', 'https://cbtflotus247.com/')
                 ])
@@ -112,10 +109,9 @@ bot.start(async (ctx) => {
         );
 
         // Send second video with link
-        await ctx.sendDocument(
+        await ctx.replyWithVideo(
             { source: videoPath2 },
             {
-                caption: 'Watch this exciting video 2!',
                 ...Markup.inlineKeyboard([
                     Markup.button.url('Register Now', 'https://cbtflotus247.com/')
                 ])
