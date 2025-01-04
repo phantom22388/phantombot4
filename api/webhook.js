@@ -34,16 +34,16 @@ bot.on('text', async (ctx) => {
 
     if (messageText === '/start') {
         try {
-            const imagePath = path.join(__dirname, '../images/cbtf button.jpg');
-            const videoPath1 = path.join(__dirname, '../videos/cbtf.register.mp4'); 
-            const videoPath2 = path.join(__dirname, '../videos/VID-20241231-WA0013.mp4'); 
+            const imagePath = path.join(__dirname, '../images/image.jpg');
+            const videoPath1 = path.join(__dirname, '..//videos/deposit.mp4'); 
+            const videoPath2 = path.join(__dirname, '../videos/withdrwal.mp4'); 
 
             await ctx.replyWithPhoto(
                 { source: imagePath },
                 {
-                    caption: 'The Arena Buzzing with excitement as countdown to victory begins! make fairless Predictions https://cbtflotus247.com/ ',
+                    caption: 'The Arena Buzzing with excitement as countdown to victory begins! make fairless Predictions https://phantom777.com/ ',
                     ...Markup.inlineKeyboard([
-                        Markup.button.url('Get Id Now', 'https://cbtflotus247.com/')
+                        Markup.button.url('Register Now', 'https://phantom777.com/')
                     ])
                 }
             );
@@ -53,7 +53,7 @@ bot.on('text', async (ctx) => {
                 { source: videoPath1 },
                 {
                     ...Markup.inlineKeyboard([
-                        Markup.button.url('Deposit Now', 'https://cbtflotus247.com/')
+                        Markup.button.url('Deposit Now', 'https://phantom777.com/')
                     ])
                 }
             );
@@ -63,7 +63,7 @@ bot.on('text', async (ctx) => {
                 { source: videoPath2 },
                 {
                     ...Markup.inlineKeyboard([
-                        Markup.button.url('Register Now', 'https://cbtflotus247.com/')
+                        Markup.button.url('Withdrawl Now', 'https://phantom777.com/')
                     ])
                 }
             );
@@ -86,8 +86,8 @@ bot.start(async (ctx) => {
         console.log('Start command received');
         await ctx.reply('Welcome! Bot is active.');
         const imagePath = path.join(__dirname, '../images/image.jpg');
-        const videoPath1 = path.join(__dirname, '../videos/cbtf.register.mp4'); 
-        const videoPath2 = path.join(__dirname, '../videos/VID-20241231-WA0013.mp4'); 
+        const videoPath1 = path.join(__dirname, '..//videos/deposit.mp4'); 
+        const videoPath2 = path.join(__dirname, '../videos/withdrwal.mp4'); 
 
         // Send image with link
         await ctx.replyWithPhoto(
@@ -95,7 +95,7 @@ bot.start(async (ctx) => {
             {
                 caption: 'The Arena Buzzing with excitement as countdown to victory begins!',
                 ...Markup.inlineKeyboard([
-                    Markup.button.url('Get ID Now', 'https://cbtflotus247.com/')
+                    Markup.button.url('Register Now', 'https://phantom777.com/')
                 ])
             }
         );
@@ -105,7 +105,7 @@ bot.start(async (ctx) => {
             { source: videoPath1 },
             {
                 ...Markup.inlineKeyboard([
-                    Markup.button.url('Deposit Now', 'https://cbtflotus247.com/')
+                    Markup.button.url('Deposit Now', 'https://phantom777.com/')
                 ])
             }
         );
@@ -115,7 +115,7 @@ bot.start(async (ctx) => {
             { source: videoPath2 },
             {
                 ...Markup.inlineKeyboard([
-                    Markup.button.url('Register Now', 'https://cbtflotus247.com/')
+                    Markup.button.url('Withdrawl Now', 'https://phantom777.com/')
                 ])
             }
         );
