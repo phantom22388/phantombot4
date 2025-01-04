@@ -11,6 +11,7 @@
   "type": "module",
   "description": "",
   "dependencies": {
+    "dotenv": "^16.4.7",
     "nodemon": "^3.1.9",
     "openai": "^4.77.0",
     "telegraf": "^4.16.3"
