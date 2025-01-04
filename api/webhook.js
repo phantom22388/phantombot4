@@ -76,7 +76,7 @@ bot.on('text', async (ctx) => {
     if (messageText === '/start') {
         await sendMedia(ctx);
     } else {
-        await ctx.reply(`You said: ${ctx.message.text}`);
+        await ctx.reply('I am a bot. I only respond to the /start command').catch(console.error);
     }
 });
 
