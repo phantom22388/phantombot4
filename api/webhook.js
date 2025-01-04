@@ -14,7 +14,7 @@ console.log('Bot token:', botToken);
 
 const bot = new Telegraf(botToken);
 
-// Add error handling
+
 bot.catch((err, ctx) => {
     console.error('Bot error:', err);
     ctx.reply('An error occurred').catch(console.error);
