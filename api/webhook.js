@@ -2,10 +2,6 @@ import { Telegraf, Markup } from 'telegraf';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import express from 'express';
-import dotenv from 'dotenv';
-
-dotenv.config(); // Load environment variables from .env
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -18,6 +14,7 @@ console.log('Bot token:', botToken);
 
 const bot = new Telegraf(botToken);
 
+// Add error handling
 bot.catch((err, ctx) => {
     console.error('Bot error:', err);
     ctx.reply('An error occurred').catch(console.error);
@@ -80,15 +77,89 @@ bot.on('text', async (ctx) => {
     }
 });
 
-// Express server to handle webhook updates
-const app = express();
-app.use(express.json()); // Ensure the body is parsed as JSON
+// Test commands
+bot.command('test', (ctx) => ctx.reply('Bot is working!'));
+bot.command('ping', (ctx) => ctx.reply('pong'));
 
-app.post('/webhook', (req, res) => {
-    bot.handleUpdate(req.body, res);
+bot.start(async (ctx) => {
+    try {
+        console.log('Start command received');
+        await ctx.reply('Welcome! Bot is active.');
+        const imagePath = path.join(__dirname, '../images/image.jpg');
+        const videoPath1 = path.join(__dirname, '../videos/cbtf.register.mp4'); 
+        const videoPath2 = path.join(__dirname, '../videos/VID-20241231-WA0013.mp4'); 
+
+        // Send image with link
+        await ctx.replyWithPhoto(
+            { source: imagePath },
+            {
+                caption: 'The Arena Buzzing with excitement as countdown to victory begins!',
+                ...Markup.inlineKeyboard([
+                    Markup.button.url('Get ID Now', 'https://cbtflotus247.com/')
+                ])
+            }
+        );
+
+        // Send first video with link
+        await ctx.replyWithVideo(
+            { source: videoPath1 },
+            {
+                ...Markup.inlineKeyboard([
+                    Markup.button.url('Deposit Now', 'https://cbtflotus247.com/')
+                ])
+            }
+        );
+
+        // Send second video with link
+        await ctx.replyWithVideo(
+            { source: videoPath2 },
+            {
+                ...Markup.inlineKeyboard([
+                    Markup.button.url('Register Now', 'https://cbtflotus247.com/')
+                ])
+            }
+        );
+
+    } catch (error) {
+        console.error('Start command error:', error);
+        await ctx.reply('Sorry, could not send media').catch(console.error);
+    }
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+export default async function handler(request, response) {
+    try {
+        console.log(`Request ${request.method}:`, request.body);
+
+        if (request.method === 'GET') {
+            return response.status(200).json({ 
+                status: 'alive',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        // Webhook handler
+        if (request.method === 'POST') {
+            const update = request.body;
+            console.log('Update body:', JSON.stringify(update, null, 2));
+            
+            if (!update) {
+                throw new Error('No update body received');
+            }
+
+            await bot.handleUpdate(update);
+            return response.status(200).json({ ok: true });
+        }
+
+        return response.status(405).json({ error: 'Method not allowed' });
+    } catch (error) {
+        console.error('Webhook error:', error);
+        return response.status(500).json({ 
+            error: error.message,
+            stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+        });
+    }
+}
+
+
+process.once('SIGINT', () => bot.stop('SIGINT'));
+process.once('SIGTERM', () => bot.stop('SIGTERM'));
