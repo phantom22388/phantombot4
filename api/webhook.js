@@ -2,6 +2,11 @@ import { Telegraf, Markup } from 'telegraf';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import express from 'express';
+import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -27,50 +32,54 @@ bot.use(async (ctx, next) => {
     console.log('Response sent');
 });
 
+// Function to send media
+const sendMedia = async (ctx) => {
+    try {
+        const imagePath = path.join(__dirname, '../images/phantomregister.jpeg');
+        const videoPath1 = path.join(__dirname, '../videos/register.mp4'); 
+        const videoPath2 = path.join(__dirname, '../videos/withdrwal (2).mp4'); 
+
+        await ctx.replyWithPhoto(
+            { source: imagePath },
+            {
+                caption: 'The Arena Buzzing with excitement as countdown to victory begins! Make fearless predictions at https://phantom777.com/',
+                ...Markup.inlineKeyboard([
+                    Markup.button.url('🎟️ Get ID Now', 'https://phantom777.com/')
+                ])
+            }
+        );
+
+        await ctx.replyWithVideo(
+            { source: videoPath1 },
+            {
+                ...Markup.inlineKeyboard([
+                    Markup.button.url('📝 Register Now', 'https://phantom777.com/')
+                ])
+            }
+        );
+
+        await ctx.replyWithVideo(
+            { source: videoPath2 },
+            {
+                ...Markup.inlineKeyboard([
+                    Markup.button.url('💸 Withdraw Now', 'https://phantom777.com/')
+                ])
+            }
+        );
+
+    } catch (error) {
+        console.error('Error sending media:', error);
+        await ctx.reply('Sorry, could not send media').catch(console.error);
+    }
+};
+
 // Message handlers
 bot.on('text', async (ctx) => {
     const messageText = ctx.message.text.toLowerCase();
     console.log('Received message:', messageText);
 
     if (messageText === '/start') {
-        try {
-            const imagePath = path.join(__dirname, '../images/phantomregister.jpeg');
-            const videoPath1 = path.join(__dirname, '../videos/register.mp4'); 
-            const videoPath2 = path.join(__dirname, '../videos/withdrwal (2).mp4'); 
-
-            await ctx.replyWithPhoto(
-                { source: imagePath },
-                {
-                    caption: 'The Arena Buzzing with excitement as countdown to victory begins! make fairless Predictions https://phantom777.com/ ',
-                    ...Markup.inlineKeyboard([
-                        Markup.button.url('🎟️ Get Id Now', 'https://phantom777.com/')
-                    ])
-                }
-            );
-
-            await ctx.replyWithVideo(
-                { source: videoPath1 },
-                {
-                    ...Markup.inlineKeyboard([
-                        Markup.button.url('📝 Register Now', 'https://phantom777.com/')
-                    ])
-                }
-            );
-
-            // Send second video with link
-            await ctx.replyWithVideo(
-                { source: videoPath2 },
-                {
-                    ...Markup.inlineKeyboard([
-                        Markup.button.url('💸 Withdrawl Now', 'https://phantom777.com/')
-                    ])
-                }
-            );
-
-        } catch (error) {
-            console.error('Error sending media:', error);
-            await ctx.reply('Sorry, could not send media').catch(console.error);
-        }
+        await sendMedia(ctx);
     } else {
         await ctx.reply(`You said: ${ctx.message.text}`);
     }
@@ -81,70 +90,21 @@ bot.command('test', (ctx) => ctx.reply('Bot is working!'));
 bot.command('ping', (ctx) => ctx.reply('pong'));
 
 bot.start(async (ctx) => {
-    try {
-        console.log('Start command received');
-        await ctx.reply('Welcome! Bot is active.');
-        const imagePath = path.join(__dirname, '../images/phantomregister.jpeg');
-        const videoPath1 = path.join(__dirname, '../videos/register.mp4'); 
-        const videoPath2 = path.join(__dirname, '../videos/withdrwal (2).mp4'); 
-
-        // Send image with link
-        await ctx.replyWithPhoto(
-            { source: imagePath },
-            {
-                caption: 'The Arena Buzzing with excitement as countdown to victory begins!',
-                ...Markup.inlineKeyboard([
-                    Markup.button.url('🎟️ Get ID Now', 'https://phantom777.com/')
-                ])
-            }
-        );
-
-        // Send first video with link
-        await ctx.replyWithVideo(
-            { source: videoPath1 },
-            {
-                ...Markup.inlineKeyboard([
-                    Markup.button.url('📝 Register Now', 'https://phantom777.com/')
-                ])
-            }
-        );
-
-        // Send second video with link
-        await ctx.replyWithVideo(
-            { source: videoPath2 },
-            {
-                ...Markup.inlineKeyboard([
-                    Markup.button.url('💸 Withdrawl Now', 'https://phantom777.com/')
-                ])
-            }
-        );
-
-    } catch (error) {
-        console.error('Start command error:', error);
-        await ctx.reply('Sorry, could not send media').catch(console.error);
-    }
+    console.log('Start command received');
+    await ctx.reply('Welcome! Bot is active.');
+    await sendMedia(ctx);
 });
 
-export default async function handler(request, response) {
+// Webhook setup
+const app = express();
+app.use(bodyParser.json());
+
+app.post('/webhook', async (request, response) => {
     try {
-        console.log(`Request ${request.method}:`, request.body);
+        const update = request.body;
 
-        if (request.method === 'GET') {
-            return response.status(200).json({ 
-                status: 'alive',
-                timestamp: new Date().toISOString()
-            });
-        }
-
-        // Webhook handler
-        if (request.method === 'POST') {
-            const update = request.body;
-            console.log('Update body:', JSON.stringify(update, null, 2));
-            
-            if (!update) {
-                throw new Error('No update body received');
-            }
-
+        if (update) {
+            console.log('Received update:', update);
             await bot.handleUpdate(update);
             return response.status(200).json({ ok: true });
         }
@@ -157,8 +117,12 @@ export default async function handler(request, response) {
             stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
         });
     }
-}
-
+});
 
 process.once('SIGINT', () => bot.stop('SIGINT'));
 process.once('SIGTERM', () => bot.stop('SIGTERM'));
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
