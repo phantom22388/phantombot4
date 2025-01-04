@@ -39,6 +39,7 @@ const sendMedia = async (ctx) => {
         const videoPath1 = path.join(__dirname, '../videos/register.mp4'); 
         const videoPath2 = path.join(__dirname, '../videos/withdrwal (2).mp4'); 
 
+        console.log('Sending image from:', imagePath);
         await ctx.replyWithPhoto(
             { source: imagePath },
             {
@@ -49,6 +50,7 @@ const sendMedia = async (ctx) => {
             }
         );
 
+        console.log('Sending video 1 from:', videoPath1);
         await ctx.replyWithVideo(
             { source: videoPath1 },
             {
@@ -58,6 +60,7 @@ const sendMedia = async (ctx) => {
             }
         );
 
+        console.log('Sending video 2 from:', videoPath2);
         await ctx.replyWithVideo(
             { source: videoPath2 },
             {
