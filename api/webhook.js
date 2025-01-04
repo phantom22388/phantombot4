@@ -35,7 +35,7 @@ bot.on('text', async (ctx) => {
     if (messageText === '/start') {
         try {
             const imagePath = path.join(__dirname, '../images/image.jpg');
-            const videoPath1 = path.join(__dirname, '..//videos/deposit.mp4'); 
+            const videoPath1 = path.join(__dirname, '../videos/deposit.mp4'); 
             const videoPath2 = path.join(__dirname, '../videos/withdrwal.mp4'); 
 
             await ctx.replyWithPhoto(
@@ -86,7 +86,7 @@ bot.start(async (ctx) => {
         console.log('Start command received');
         await ctx.reply('Welcome! Bot is active.');
         const imagePath = path.join(__dirname, '../images/image.jpg');
-        const videoPath1 = path.join(__dirname, '..//videos/deposit.mp4'); 
+        const videoPath1 = path.join(__dirname, '../videos/deposit.mp4'); 
         const videoPath2 = path.join(__dirname, '../videos/withdrwal.mp4'); 
 
         // Send image with link
