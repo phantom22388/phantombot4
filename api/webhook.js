@@ -43,17 +43,16 @@ bot.on('text', async (ctx) => {
                 {
                     caption: 'The Arena Buzzing with excitement as countdown to victory begins! make fairless Predictions https://phantom777.com/ ',
                     ...Markup.inlineKeyboard([
-                        Markup.button.url('Get Id Now', 'https://phantom777.com/')
+                        Markup.button.url('🎟️ Get Id Now', 'https://phantom777.com/')
                     ])
                 }
             );
 
-            // Send first video with link
             await ctx.replyWithVideo(
                 { source: videoPath1 },
                 {
                     ...Markup.inlineKeyboard([
-                        Markup.button.url('Register Now', 'https://phantom777.com/')
+                        Markup.button.url('📝 Register Now', 'https://phantom777.com/')
                     ])
                 }
             );
@@ -63,7 +62,7 @@ bot.on('text', async (ctx) => {
                 { source: videoPath2 },
                 {
                     ...Markup.inlineKeyboard([
-                        Markup.button.url('Withdrawl Now', 'https://phantom777.com/')
+                        Markup.button.url('💸 Withdrawl Now', 'https://phantom777.com/')
                     ])
                 }
             );
@@ -95,7 +94,7 @@ bot.start(async (ctx) => {
             {
                 caption: 'The Arena Buzzing with excitement as countdown to victory begins!',
                 ...Markup.inlineKeyboard([
-                    Markup.button.url('Get ID Now', 'https://phantom777.com/')
+                    Markup.button.url('🎟️ Get ID Now', 'https://phantom777.com/')
                 ])
             }
         );
@@ -105,7 +104,7 @@ bot.start(async (ctx) => {
             { source: videoPath1 },
             {
                 ...Markup.inlineKeyboard([
-                    Markup.button.url('Register Now', 'https://phantom777.com/')
+                    Markup.button.url('📝 Register Now', 'https://phantom777.com/')
                 ])
             }
         );
@@ -115,7 +114,7 @@ bot.start(async (ctx) => {
             { source: videoPath2 },
             {
                 ...Markup.inlineKeyboard([
-                    Markup.button.url('Withdrawl Now', 'https://phantom777.com/')
+                    Markup.button.url('💸 Withdrawl Now', 'https://phantom777.com/')
                 ])
             }
         );
