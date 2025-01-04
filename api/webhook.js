@@ -35,8 +35,8 @@ bot.on('text', async (ctx) => {
     if (messageText === '/start') {
         try {
             const imagePath = path.join(__dirname, '../images/phantomregister.jpeg');
-            const videoPath1 = path.join(__dirname, '../videos/deposit.mp4'); 
-            const videoPath2 = path.join(__dirname, '../videos/withdrwal.mp4'); 
+            const videoPath1 = path.join(__dirname, '../videos/register.mp4'); 
+            const videoPath2 = path.join(__dirname, '../videos/withdrwal (2).mp4'); 
 
             await ctx.replyWithPhoto(
                 { source: imagePath },
@@ -53,7 +53,7 @@ bot.on('text', async (ctx) => {
                 { source: videoPath1 },
                 {
                     ...Markup.inlineKeyboard([
-                        Markup.button.url('Deposit Now', 'https://phantom777.com/')
+                        Markup.button.url('Register Now', 'https://phantom777.com/')
                     ])
                 }
             );
@@ -63,7 +63,7 @@ bot.on('text', async (ctx) => {
                 { source: videoPath2 },
                 {
                     ...Markup.inlineKeyboard([
-                        Markup.button.url('Register Now', 'https://phantom777.com/')
+                        Markup.button.url('Withdrawl Now', 'https://phantom777.com/')
                     ])
                 }
             );
@@ -86,8 +86,8 @@ bot.start(async (ctx) => {
         console.log('Start command received');
         await ctx.reply('Welcome! Bot is active.');
         const imagePath = path.join(__dirname, '../images/phantomregister.jpeg');
-        const videoPath1 = path.join(__dirname, '../videos/deposit.mp4'); 
-        const videoPath2 = path.join(__dirname, '../videos/withdrwal.mp4'); 
+        const videoPath1 = path.join(__dirname, '../videos/register.mp4'); 
+        const videoPath2 = path.join(__dirname, '../videos/withdrwal (2).mp4'); 
 
         // Send image with link
         await ctx.replyWithPhoto(
@@ -105,7 +105,7 @@ bot.start(async (ctx) => {
             { source: videoPath1 },
             {
                 ...Markup.inlineKeyboard([
-                    Markup.button.url('Deposit Now', 'https://phantom777.com/')
+                    Markup.button.url('Register Now', 'https://phantom777.com/')
                 ])
             }
         );
@@ -115,7 +115,7 @@ bot.start(async (ctx) => {
             { source: videoPath2 },
             {
                 ...Markup.inlineKeyboard([
-                    Markup.button.url('Register Now', 'https://phantom777.com/')
+                    Markup.button.url('Withdrawl Now', 'https://phantom777.com/')
                 ])
             }
         );
