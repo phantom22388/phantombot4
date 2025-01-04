@@ -52,7 +52,7 @@ bot.on('text', async (ctx) => {
     }
 });
 
-// Webhook setup
+
 const app = express();
 app.use(bodyParser.json());
 
