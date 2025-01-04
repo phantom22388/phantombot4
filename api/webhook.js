@@ -2,6 +2,11 @@ import { Telegraf, Markup } from 'telegraf';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import express from 'express';
+import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -35,117 +40,28 @@ bot.on('text', async (ctx) => {
     if (messageText === '/start') {
         try {
             const imagePath = path.join(__dirname, '../images/cbtf button.jpg');
-            const videoPath1 = path.join(__dirname, '../videos/cbtf.register.mp4'); 
-            const videoPath2 = path.join(__dirname, '../videos/VID-20241231-WA0013.mp4'); 
-
-            await ctx.replyWithPhoto(
-                { source: imagePath },
-                {
-                    caption: 'The Arena Buzzing with excitement as countdown to victory begins! make fairless Predictions https://cbtflotus247.com/ ',
-                    ...Markup.inlineKeyboard([
-                        Markup.button.url('Get Id Now', 'https://cbtflotus247.com/')
-                    ])
-                }
-            );
-
-            // Send first video with link
-            await ctx.replyWithVideo(
-                { source: videoPath1 },
-                {
-                    ...Markup.inlineKeyboard([
-                        Markup.button.url('Deposit Now', 'https://cbtflotus247.com/')
-                    ])
-                }
-            );
-
-            // Send second video with link
-            await ctx.replyWithVideo(
-                { source: videoPath2 },
-                {
-                    ...Markup.inlineKeyboard([
-                        Markup.button.url('Register Now', 'https://cbtflotus247.com/')
-                    ])
-                }
-            );
-
+            const videoPath1 = path.join(__dirname, '../videos/cbtf.register.mp4');
+            await ctx.replyWithPhoto({ source: imagePath });
+            await ctx.replyWithVideo({ source: videoPath1 });
         } catch (error) {
             console.error('Error sending media:', error);
-            await ctx.reply('Sorry, could not send media').catch(console.error);
+            await ctx.reply('Failed to send media');
         }
     } else {
-        await ctx.reply(`You said: ${ctx.message.text}`);
+        await ctx.reply('Unknown command');
     }
 });
 
-// Test commands
-bot.command('test', (ctx) => ctx.reply('Bot is working!'));
-bot.command('ping', (ctx) => ctx.reply('pong'));
+// Webhook setup
+const app = express();
+app.use(bodyParser.json());
 
-bot.start(async (ctx) => {
+app.post('/webhook', async (request, response) => {
     try {
-        console.log('Start command received');
-        await ctx.reply('Welcome! Bot is active.');
-        const imagePath = path.join(__dirname, '../images/image.jpg');
-        const videoPath1 = path.join(__dirname, '../videos/cbtf.register.mp4'); 
-        const videoPath2 = path.join(__dirname, '../videos/VID-20241231-WA0013.mp4'); 
+        const update = request.body;
 
-        // Send image with link
-        await ctx.replyWithPhoto(
-            { source: imagePath },
-            {
-                caption: 'The Arena Buzzing with excitement as countdown to victory begins!',
-                ...Markup.inlineKeyboard([
-                    Markup.button.url('Get ID Now', 'https://cbtflotus247.com/')
-                ])
-            }
-        );
-
-        // Send first video with link
-        await ctx.replyWithVideo(
-            { source: videoPath1 },
-            {
-                ...Markup.inlineKeyboard([
-                    Markup.button.url('Deposit Now', 'https://cbtflotus247.com/')
-                ])
-            }
-        );
-
-        // Send second video with link
-        await ctx.replyWithVideo(
-            { source: videoPath2 },
-            {
-                ...Markup.inlineKeyboard([
-                    Markup.button.url('Register Now', 'https://cbtflotus247.com/')
-                ])
-            }
-        );
-
-    } catch (error) {
-        console.error('Start command error:', error);
-        await ctx.reply('Sorry, could not send media').catch(console.error);
-    }
-});
-
-export default async function handler(request, response) {
-    try {
-        console.log(`Request ${request.method}:`, request.body);
-
-        if (request.method === 'GET') {
-            return response.status(200).json({ 
-                status: 'alive',
-                timestamp: new Date().toISOString()
-            });
-        }
-
-        // Webhook handler
-        if (request.method === 'POST') {
-            const update = request.body;
-            console.log('Update body:', JSON.stringify(update, null, 2));
-            
-            if (!update) {
-                throw new Error('No update body received');
-            }
-
+        if (update) {
+            console.log('Received update:', update);
             await bot.handleUpdate(update);
             return response.status(200).json({ ok: true });
         }
@@ -158,8 +74,12 @@ export default async function handler(request, response) {
             stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
         });
     }
-}
-
+});
 
 process.once('SIGINT', () => bot.stop('SIGINT'));
 process.once('SIGTERM', () => bot.stop('SIGTERM'));
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
