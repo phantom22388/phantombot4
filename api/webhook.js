@@ -41,7 +41,7 @@ bot.on('text', async (ctx) => {
             await ctx.replyWithPhoto(
                 { source: imagePath },
                 {
-                    caption: 'The Arena Buzzing with excitement as countdown to victory begins! make fairless Predictions https://cbtflotus247.com/ ',
+                    caption: 'The Arena Buzzing with excitement as countdown to victory begins! make fairless Predictions https://phantom777.com/ ',
                     ...Markup.inlineKeyboard([
                         Markup.button.url('Get Id Now', 'https://phantom777.com/')
                     ])
